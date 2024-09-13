@@ -556,10 +556,27 @@ public class Network extends Thread{
     	
     	while (true)
     	{
-		/* Implement here the code for the run method ... */
-        
-            
-            
+            try {
+                Thread.sleep(1000);
+
+                if(!getInBufferStatus().equals("empty")){
+
+                    Transactions sendTransactions = new Transactions();
+                    transferIn(sendTransactions);
+
+                    System.out.println("\n DEBUG : Network.run() - Transferring packets from client to server");
+                }
+
+                if(!getOutBufferStatus().equals("empty")){
+
+                    Transactions receiveTransactions = new Transactions();
+                    transferOut(receiveTransactions);
+
+                    System.out.println("\n DEBUG: Network.run() - Transferring packets from server to client");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("\n ERROR: Network Thread interrupted.");
+            } 
     	}    
     }
 }
