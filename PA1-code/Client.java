@@ -214,5 +214,33 @@ public class Client extends Thread{
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
     
     	/* Implement here the code for the run method ... */
+        if(clientOperation.equals("sending")){
+
+            sendClientStartTime = System.currentTimeMillis();
+
+            sendTransactions();// send all transactions to server
+
+            sendClientEndTime = System.currentTimeMillis();// endtime for sending transactions
+
+            System.out.println("Elapsed time for sending: " + (sendClientEndTime - sendClientStartTime + "ms"));
+
+            objNetwork.disconnect(clientOperation);// terminate client connection
+
+        }else if(clientOperation.equals("receiving")){
+
+            receiveClientStartTime = System.currentTimeMillis();
+
+            receiveTransactions(transact);// receive transactions from the server via network
+
+            receiveClientEndTime = System.currentTimeMillis();// endtime for receiving transactions
+
+            System.out.println("Elapsed time for receiving: " + (receiveClientStartTime - receiveClientEndTime + "ms"));
+
+            objNetwork.disconnect(clientOperation);// terminate client connection
+
+        }else{
+            System.out.println("Invalid client operation!");
+        }
+        //this implementation assumes the client only handles one operation at a time/thread(send or receive)
     }
 }

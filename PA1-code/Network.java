@@ -372,12 +372,10 @@ public class Network extends Thread{
             if (getinputIndexClient() == getoutputIndexServer())
             {	
             	setInBufferStatus("full");
-            
             	System.out.println("\n DEBUG : Network.send() - inComingBuffer status " + getInBufferStatus());
             }
             else
             	setInBufferStatus("normal");
-            
             return true;
         }   
          
@@ -451,9 +449,8 @@ public class Network extends Thread{
      * @param inPacket transaction transferred from the input buffer to the server 
      * 
      */
-         public boolean transferIn(Transactions inPacket)
-        {
-		System.out.println("\n DEBUG : Network.transferIn - account number " + inComingPacket[outputIndexServer].getAccountNumber());
+         public boolean transferIn(Transactions inPacket){
+		    System.out.println("\n DEBUG : Network.transferIn - account number " + inComingPacket[outputIndexServer].getAccountNumber());
             inPacket.setAccountNumber(inComingPacket[outputIndexServer].getAccountNumber());
             inPacket.setOperationType(inComingPacket[outputIndexServer].getOperationType());
             inPacket.setTransactionAmount(inComingPacket[outputIndexServer].getTransactionAmount());
@@ -466,16 +463,13 @@ public class Network extends Thread{
             
            setoutputIndexServer(((getoutputIndexServer() + 1) % getMaxNbPackets()));	/* Increment the input buffer index for the server */
            /* Check if input buffer is empty */
-            if ( getoutputIndexServer( ) == getinputIndexClient( ))
-            {
+            if ( getoutputIndexServer( ) == getinputIndexClient( )){
                 setInBufferStatus("empty");
                 
                 System.out.println("\n DEBUG : Network.transferIn() - inComingBuffer status " + getInBufferStatus());
-            }
-            else
+            }else
                 setInBufferStatus("normal");
-            
-             return true;
+                return true;
         }   
          
      /**
