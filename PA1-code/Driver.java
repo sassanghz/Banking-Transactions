@@ -24,18 +24,24 @@ public class Driver {
         objServer.start();// starting the server thread
 
         // with the server thread starting, it will beign processing the transactions in its own thread 
+       
+        // client threads
+        Client objClient1 = new Client("client1");
+        Client objClient2 = new Client("client2");
+
+        objClient1.start();
+        objClient2.start();
+
         try {
+            objClient1.join();
+            objClient2.join();
             objServer.join();
         } catch (InterruptedException e) {
-            System.out.println("Server thread interrupted.");
+            System.out.println("Driver interrupted");
         }
 
-        objNetwork.interrupt();
+        objNetwork.terminate();// signal termination
 
-        try {
-            objNetwork.join();
-        } catch (Exception e) {
-            System.out.println("Network thread interrupted.");
-        }
+        
     }
 }

@@ -22,6 +22,8 @@ public class Network extends Thread{
     private static Transactions outGoingPacket[];              /* Outgoing network buffer */
     private static String inBufferStatus, outBufferStatus;     /* Current status of the network buffers - normal, full, empty */
     private static String networkStatus;                       /* Network status - active, inactive */
+    // new
+    private volatile boolean running = true; // Flag to control thread execution
       
     /** 
      * Constructor of the Network class
@@ -548,30 +550,33 @@ public class Network extends Thread{
     {	
     	System.out.println("\n DEBUG : Network.run() - starting network thread");
     	
-    	while (true)
+    	while (running)
     	{
             try {
-                
                 Thread.sleep(1000);
-
-                if(!getInBufferStatus().equals("empty")){
-
+    
+                // Check if there are transactions
+                if (!getInBufferStatus().equals("empty")) {
                     Transactions sendTransactions = new Transactions();
                     transferIn(sendTransactions);
-
                     System.out.println("\n DEBUG : Network.run() - Transferring packets from client to server");
                 }
-
-                if(!getOutBufferStatus().equals("empty")){
-
+    
+                // Check if there are transactions
+                if (!getOutBufferStatus().equals("empty")) {
                     Transactions receiveTransactions = new Transactions();
                     transferOut(receiveTransactions);
-
-                    System.out.println("\n DEBUG: Network.run() - Transferring packets from server to client");
+                    System.out.println("\n DEBUG : Network.run() - Transferring packets from server to client");
                 }
+    
             } catch (InterruptedException e) {
                 System.out.println("\n ERROR: Network Thread interrupted.");
-            } 
+                break; //terminate the thread 
+            }
     	}
+    }
+
+    public void terminate(){
+        running = false;
     }
 }
