@@ -157,7 +157,7 @@ public class Server extends Thread{
         
         System.out.println("\n DEBUG : Server.initializeAccounts() " + getNumberOfAccounts() + " accounts processed");
         
-        inputStream.close( );
+        inputStream.close();
      }
          
     /** 
