@@ -550,7 +550,9 @@ public class Network extends Thread{
     	
     	while (true)
     	{
+            /*
             try {
+                
                 Thread.sleep(1000);
 
                 if(!getInBufferStatus().equals("empty")){
@@ -571,6 +573,14 @@ public class Network extends Thread{
             } catch (InterruptedException e) {
                 System.out.println("\n ERROR: Network Thread interrupted.");
             } 
+                */
+
+
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e){
+                System.out.println("Network was interrupted. Shutting down...");
+            }
     	}    
     }
 }
