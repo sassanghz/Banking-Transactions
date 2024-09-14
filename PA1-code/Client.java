@@ -208,36 +208,39 @@ public class Client extends Thread{
      * @return 
      * @param
      */
-    public void run()
-    {   
-    	Transactions transact = new Transactions();
-    	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    
-    	if (clientOperation.equals("sending")) {
-            sendClientStartTime = System.currentTimeMillis();
-    
+    @Override
+    public void run() {
+        Transactions transact = new Transactions(); // keep this the way it is
+        long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime; // keep these as they are
+
+        if (clientOperation == null) {
+            System.out.println("Client operation is null. Please initialize it before use.");
+            return;
+        }
+
+        if (clientOperation.equals("sending")) {
+            sendClientStartTime = System.currentTimeMillis(); // start sending timer
+
             sendTransactions(); // send all transactions to server
-    
-            sendClientEndTime = System.currentTimeMillis(); // end time for sending transactions
-    
+
+            sendClientEndTime = System.currentTimeMillis(); // end sending timer
             System.out.println("Elapsed time for sending: " + (sendClientEndTime - sendClientStartTime) + "ms");
-    
+
             objNetwork.disconnect(clientOperation); // terminate client connection
-    
+
         } else if (clientOperation.equals("receiving")) {
-            receiveClientStartTime = System.currentTimeMillis();
-    
+            receiveClientStartTime = System.currentTimeMillis(); // start receiving timer
+
             receiveTransactions(transact); // receive transactions from the server via network
-    
-            receiveClientEndTime = System.currentTimeMillis(); // end time for receiving transactions
-    
+
+            receiveClientEndTime = System.currentTimeMillis(); // end receiving timer
             System.out.println("Elapsed time for receiving: " + (receiveClientEndTime - receiveClientStartTime) + "ms");
-    
+
             objNetwork.disconnect(clientOperation); // terminate client connection
-    
+
         } else {
             System.out.println("Invalid client operation!");
         }
-        //this implementation assumes the client only handles one operation at a time/thread(send or receive)
     }
+
 }

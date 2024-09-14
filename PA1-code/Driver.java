@@ -26,15 +26,15 @@ public class Driver {
         // with the server thread starting, it will beign processing the transactions in its own thread 
        
         // client threads
-        Client objClient1 = new Client("client1");
-        Client objClient2 = new Client("client2");
+        Client objClient1 = new Client("sending");
+        //Client objClient2 = new Client("client2");
 
         objClient1.start();
-        objClient2.start();
+        //objClient2.start();
 
         try {
             objClient1.join();
-            objClient2.join();
+            //objClient2.join();
             objServer.join();
         } catch (InterruptedException e) {
             System.out.println("Driver interrupted");
