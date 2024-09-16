@@ -27,21 +27,19 @@ public class Driver {
        
         // client threads
         Client objClient1 = new Client("sending");
-        //Client objClient2 = new Client("client2");
+        Client objClient2 = new Client("receiving");
 
         objClient1.start();
-        //objClient2.start();
+        objClient2.start();
 
         try {
             objClient1.join();
-            //objClient2.join();
+            objClient2.join();
             objServer.join();
         } catch (InterruptedException e) {
             System.out.println("Driver interrupted");
         }
 
         objNetwork.terminate();// signal termination
-
-        
     }
 }
