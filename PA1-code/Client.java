@@ -220,7 +220,7 @@ public class Client extends Thread{
             sendTransactions(); // send all transactions to server
     
             sendClientEndTime = System.currentTimeMillis(); // end sending timer
-            System.out.println("Elapsed time for sending: " + (sendClientEndTime - sendClientStartTime) + "ms");
+            //System.out.println("Elapsed time for sending: " + (sendClientEndTime - sendClientStartTime) + "ms");
     
             objNetwork.disconnect(clientOperation); // terminate client connection
 
@@ -238,7 +238,7 @@ public class Client extends Thread{
             }
             
             receiveClientEndTime = System.currentTimeMillis(); // end receiving timer
-            System.out.println("Elapsed time for receiving: " + (receiveClientEndTime - receiveClientStartTime) + "ms");
+            //System.out.println("Elapsed time for receiving: " + (receiveClientEndTime - receiveClientStartTime) + "ms");
     
             objNetwork.disconnect(clientOperation); // terminate client connection
             
