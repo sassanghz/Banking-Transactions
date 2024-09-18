@@ -515,11 +515,15 @@ public class Network extends Thread{
              {
                 setClientConnectionStatus("disconnected");
                 System.out.println("\n Terminating network thread - Client disconnected");
+                running = false;
+                //interrupt();
              }
              else if (getServerIP().equals(IP))
              {
                 setServerConnectionStatus("disconnected");
                 System.out.println("\n Terminating network thread - Server disconnected");
+                //running = false;
+                //interrupt();
              }
              return true;
          }
@@ -569,6 +573,11 @@ public class Network extends Thread{
                     transferOut(receiveTransactions);
                     System.out.println("\n DEBUG : Network.run() - Transferring packets from server to client");
                 }
+
+                /* 
+                if(!running)
+                    break;
+                */
     
             } catch (InterruptedException e) {
                 System.out.println("\n ERROR: Network Thread interrupted.");

@@ -246,6 +246,5 @@ public class Client extends Thread{
         }else {
             System.out.println("Invalid client operation!");
         }
- 
     }
 }
