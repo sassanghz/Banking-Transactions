@@ -23,7 +23,7 @@ public class Server extends Thread{
 	Transactions transaction;         /* Transaction being processed */
 	Network objNetwork;               /* Server object to handle network operations */
 	Accounts [] account;              /* Accounts to be accessed or updated */
-  
+    private volatile boolean running;
     /** 
      * Constructor method of Client class
      * 
@@ -311,10 +311,10 @@ public class Server extends Thread{
     	long serverStartTime, serverEndTime;
 
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
-    	
+
         serverStartTime = System.currentTimeMillis();
 
-        while (!objNetwork.getClientConnectionStatus().equals("disconnected")) {
+        while (running && !objNetwork.getClientConnectionStatus().equals("disconnected")) {
             if (objNetwork.getInBufferStatus().equals("empty")) {
                 Thread.yield();
                 continue;
@@ -338,6 +338,10 @@ public class Server extends Thread{
         
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
            
+    }
+
+    public void terminate(){
+        running = false;
     }
 }
 

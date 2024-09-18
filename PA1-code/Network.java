@@ -514,11 +514,12 @@ public class Network extends Thread{
              if (getClientIP().equals(IP))
              {
                 setClientConnectionStatus("disconnected");
+                System.out.println("\n Terminating network thread - Client disconnected");
              }
-             else
-             if (getServerIP().equals(IP))
+             else if (getServerIP().equals(IP))
              {
                 setServerConnectionStatus("disconnected");
+                System.out.println("\n Terminating network thread - Server disconnected");
              }
              return true;
          }
@@ -560,7 +561,7 @@ public class Network extends Thread{
                     Transactions sendTransactions = new Transactions();
                     transferIn(sendTransactions);
                     System.out.println("\n DEBUG : Network.run() - Transferring packets from client to server");
-                }
+                }   
     
                 // Check if there are transactions
                 if (!getOutBufferStatus().equals("empty")) {
