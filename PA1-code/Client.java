@@ -141,7 +141,7 @@ public class Client extends Thread{
         
         System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
         
-        inputStream.close( );
+        inputStream.close();
 
      }
      
@@ -231,19 +231,13 @@ public class Client extends Thread{
         }else if (clientOperation.equals("receiving")) {
                 
             receiveClientStartTime = System.currentTimeMillis(); // start receiving timer
-                
-            while (true) {    
-                if(transact == null)
-                    break;                    
-                else
-                    receiveTransactions(transact);
-            }
+        
+            receiveTransactions(transact);
             
             receiveClientEndTime = System.currentTimeMillis(); // end receiving timer
             //System.out.println("Elapsed time for receiving: " + (receiveClientEndTime - receiveClientStartTime) + "ms");
     
             objNetwork.disconnect(objNetwork.getClientIP()); // terminate client connection
-            
             System.out.println("\nTerminating client receiving thread - Running time " + (receiveClientEndTime - receiveClientStartTime) + "ms");
         }else {
             System.out.println("Invalid client operation!");
