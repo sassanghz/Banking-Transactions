@@ -193,7 +193,13 @@ public class Server extends Thread{
          { 
         	while((objNetwork.getInBufferStatus().equals("empty"))){// add a statement
                 // the issue is with the client, find a way to stop the infinite loop in the output
+                // if the client is disconnected then stop running
+                if(objNetwork.getClientConnectionStatus().equals("disconnected")){
+                    break;
+                }
+
                 Thread.yield();
+
             } /* Alternatively, busy-wait until the network input buffer is available */
         	 
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
@@ -318,9 +324,6 @@ public class Server extends Thread{
             
             // Process the transaction
             processTransactions(trans);
-
-            //objNetwork.disconnect(objNetwork.getServerIP());
-
         }
         // Disconnect the server
         objNetwork.disconnect(objNetwork.getServerIP());
