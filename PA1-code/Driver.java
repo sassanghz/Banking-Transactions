@@ -31,17 +31,5 @@ public class Driver {
 
         objClient1.start();
         objClient2.start();
-
-        try {
-            objClient1.join();// the join is waiting for the threads to finish before proceeding          
-            objClient2.join();
-            //objServer.join();
-        } catch (InterruptedException e) {
-            System.out.println("Driver interrupted");
-        }
-
-        objServer.terminate();
-        objNetwork.terminate();// signal termination
-        /*The issue is the classes are waiting for new tasks indefinitely, they are not exiting until they receive some form of shutdown*/
     }
 }

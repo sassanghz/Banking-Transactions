@@ -555,38 +555,11 @@ public class Network extends Thread{
     {	
     	System.out.println("\n DEBUG : Network.run() - starting network thread");
     	
-    	while (running)
+    	while (!(getClientConnectionStatus().equals("disconnected") && getServerConnectionStatus().equals("disconnected")))
     	{
-            try {
-                Thread.sleep(1000);
-    
-                // Check if there are transactions
-                if (!getInBufferStatus().equals("empty")) {
-                    Transactions sendTransactions = new Transactions();
-                    transferIn(sendTransactions);
-                    System.out.println("\n DEBUG : Network.run() - Transferring packets from client to server");
-                }   
-    
-                // Check if there are transactions
-                if (!getOutBufferStatus().equals("empty")) {
-                    Transactions receiveTransactions = new Transactions();
-                    transferOut(receiveTransactions);
-                    System.out.println("\n DEBUG : Network.run() - Transferring packets from server to client");
-                }
-
-                /* 
-                if(!running)
-                    break;
-                */
-    
-            } catch (InterruptedException e) {
-                System.out.println("\n ERROR: Network Thread interrupted.");
-                break; //terminate the thread 
-            }
+            Thread.yield();
     	}
     }
 
-    public void terminate(){
-        running = false;
-    }
+    
 }
