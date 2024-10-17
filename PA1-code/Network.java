@@ -22,8 +22,7 @@ public class Network extends Thread{
     private static Transactions outGoingPacket[];              /* Outgoing network buffer */
     private static String inBufferStatus, outBufferStatus;     /* Current status of the network buffers - normal, full, empty */
     private static String networkStatus;                       /* Network status - active, inactive */
-    // new
-    private volatile boolean running = true; // Flag to control thread execution
+    
       
     /** 
      * Constructor of the Network class
@@ -515,15 +514,13 @@ public class Network extends Thread{
              {
                 setClientConnectionStatus("disconnected");
                 System.out.println("\n Terminating network thread - Client disconnected");
-                running = false;
-                //interrupt();
+                
              }
              else if (getServerIP().equals(IP))
              {
                 setServerConnectionStatus("disconnected");
                 System.out.println("\n Terminating network thread - Server disconnected");
-                //running = false;
-                //interrupt();
+                
              }
              return true;
          }
